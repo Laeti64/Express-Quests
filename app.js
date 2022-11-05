@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 
 const app = express();
+app.use(express.json());
 
 const port = process.env.APP_PORT ?? 5000;
 
@@ -18,6 +19,8 @@ app.get("/api/movies", movieHandlers.getMovies);
 app.get("/api/movies/:id", movieHandlers.getMovieById);
 app.get("/api/users/", usersHandler.getUsers);
 app.get("/api/users/:id", usersHandler.getUserById);
+app.post("/api/movies", movieHandlers.postMovie);
+app.post("/api/users", usersHandler.postUser);
 
 app.listen(port, (err) => {
   if (err) {
