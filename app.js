@@ -1,4 +1,5 @@
 const express = require("express");
+const { validateMovie, validateUser } = require("./validators");
 require("dotenv").config();
 
 const app = express();
@@ -19,10 +20,10 @@ app.get("/api/movies", movieHandlers.getMovies);
 app.get("/api/movies/:id", movieHandlers.getMovieById);
 app.get("/api/users/", usersHandler.getUsers);
 app.get("/api/users/:id", usersHandler.getUserById);
-app.post("/api/movies", movieHandlers.postMovie);
-app.post("/api/users", usersHandler.postUser);
-app.put("/api/movies/:id", movieHandlers.updateMovie);
-app.put("/api/users/:id", usersHandler.updateUser);
+app.post("/api/movies", validateMovie, movieHandlers.postMovie);
+app.post("/api/users", validateUser, usersHandler.postUser);
+app.put("/api/movies/:id", validateMovie, movieHandlers.updateMovie);
+app.put("/api/users/:id", validateUser, usersHandler.updateUser);
 app.delete("/api/movies/:id", movieHandlers.deleteMovie);
 app.delete("/api/users/:id", usersHandler.deleteUser);
 
